@@ -1,0 +1,42 @@
+{% extends "exams/index.html" %}
+{% block main %}
+<div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1 class="display-4">Qc Control</h1>
+          <table class="table table-hover">
+              <tr>
+                  
+                  <th>title</th>
+                  <th>image</th>
+                  <th>ocrtext</th>
+                  <th>text</th>
+                  <th>action</th>
+                </tr>
+                {% for q in ques %}
+                <tr class={{ q.pk }}>
+                    <th>{{ q.title }}</th>
+                    <th>
+                            
+                        <img src="{{ q.img.url }}"  class="img-square" width="400" height="200" alt="{{ q.title }}">
+                    </th>
+                    <th>{{ q.ocrtext }}</th>
+                    <th>{{ q.text }}</th>
+                    <th>
+                            <a href="{{ q.get_absolute_url_qc }}" class="btn btn-success">ADD</a>
+
+                            <form action="{% url 'exams:qcdelete' pk=q.pk %}" method="POST">
+                                    {% csrf_token %}
+                                        <input class="btn btn-default btn-danger" type="submit" value="Delete"/>
+                                </form>                    </th>
+                    
+                </tr>
+                {% endfor %}       
+                
+              
+              
+            </table>
+              
+              </div>
+      </div>
+
+{% endblock %}
